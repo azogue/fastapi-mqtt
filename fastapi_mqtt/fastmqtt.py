@@ -99,7 +99,7 @@ class FastMQTT:
         template = template.split('/')
 
         for topic_part, part in zip_longest(topic, template):
-            if part == '#' and not str(topic_part).startswith("$"):
+            if part == '#' and not str(topic_part).startswith('$'):
                 return True
             elif topic_part is None or part not in {'+', topic_part}:
                 return False
@@ -136,10 +136,13 @@ class FastMQTT:
         For changing this behavior, set reconnect_retries and reconnect_delay with its values.
         For more info: https://github.com/wialon/gmqtt#reconnects
         """
-        self.client.set_config({
-            "reconnect_retries":self.config.reconnect_retries,
-            "reconnect_delay": self.config.reconnect_delay})
-     
+        self.client.set_config(
+            {
+                'reconnect_retries': self.config.reconnect_retries,
+                'reconnect_delay': self.config.reconnect_delay,
+            }
+        )
+
     def __on_connect(self, client, flags, rc, properties) -> None:
         """
         Generic on connecting handler, it would call user handler if defined.
